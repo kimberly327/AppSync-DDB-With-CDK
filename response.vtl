@@ -1,0 +1,21 @@
+#set($children = [])
+
+#foreach($item in $ctx.result.items)
+    #if($item['type'] == "parent")
+        #set($PK = $item['PK'])
+        #set($SK = $item['SK'])
+        #set($data = $item['data'])
+        #set($type = $item['type'])
+    #end
+    #if($item['type'] == "child")
+        $util.qr($children.add($item))
+    #end
+#end
+    
+{
+    "PK": "$PK",
+        "SK": "${SK}",
+        "children": $utils.toJson($children),
+        "data": "${data}",
+        "type": "${type}"
+}
